@@ -1,26 +1,37 @@
 import java.lang.Math;
 import java.util.Scanner;
+import java.util.ArrayList; // import the ArrayList class
+
 
 public class TutorialOne {
     static Scanner kInput = new Scanner(System.in);
     public static void main(String[] args){
         String choice;
-        int houseHand, card1, card2, newCard, total;
+        int houseHand, newCard, total;
+
+        ArrayList<Integer> playerHand = new ArrayList<Integer>();
+        playerHand.add(playerDraw());
+        playerHand.add(playerDraw());
 
         houseHand = houseDraw();
-        card1  = playerDraw();
-        card2 = playerDraw();
-        total  = calcTotal(card1, card2);
+
+        total  = calcTotal(playerHand);
 
 
-        System.out.println("Your Hand");
-        System.out.printf("First Card --> %d%nSecond Card --> %d%n", card1 ,card2);
-        System.out.printf("Total %d%n%n", total);
+        System.out.print("Your cards: ");
+//        System.out.printf("First Card --> %d%nSecond Card --> %d%n", card1 ,card2);
+        for (Integer card : playerHand) {
+            System.out.printf("%d,",card);
+        }
+
+        System.out.printf("%nTotal %d%n%n", total);
         System.out.println("Do you wish to draw another card? (y/n)");
         System.out.print("Choice: ");
         choice = kInput.next();
 
         while (choice.equals("y")){
+            System.out.println("");
+            playerHand.add()
             newCard = playerDraw();
             total += newCard;
             System.out.printf("%nNew Card --> %d%n", newCard);
@@ -48,8 +59,18 @@ public class TutorialOne {
         return (int)(Math.random()*10)+1;
     }
 
-    public static int calcTotal(int cardOne, int cardTwo) {
-        return cardOne + cardTwo;
+    public static void displayHand(ArrayList<Integer> playerCards) {
+        System.out.println("Your hand: ");
+        playerCards.forEach((card) -> System.out.printf(""));
+    }
+//    Continue above
+    public static int calcTotal(ArrayList<Integer> playerCards) {
+        int cardsTotal = 0;
+
+        for (Integer card : playerCards) {
+            cardsTotal += card;
+        }
+        return cardsTotal;
     }
 
     public static boolean busted(int cardsTotal) {
