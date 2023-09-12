@@ -5,11 +5,13 @@ public class TutorialOne {
     static Scanner kInput = new Scanner(System.in);
     public static void main(String[] args){
         String choice;
-        int card1, card2, newCard, total;
+        int houseHand, card1, card2, newCard, total;
 
-        card1  = randomNum();
-        card2 = randomNum();
+        houseHand = houseDraw();
+        card1  = playerDraw();
+        card2 = playerDraw();
         total  = calcTotal(card1, card2);
+
 
         System.out.println("Your Hand");
         System.out.printf("First Card --> %d%nSecond Card --> %d%n", card1 ,card2);
@@ -19,7 +21,7 @@ public class TutorialOne {
         choice = kInput.next();
 
         while (choice.equals("y")){
-            newCard = randomNum();
+            newCard = playerDraw();
             total += newCard;
             System.out.printf("%nNew Card --> %d%n", newCard);
             System.out.printf("Total %d%n%n", total);
@@ -34,16 +36,15 @@ public class TutorialOne {
             }
         }
 
-        if (getResult(total)){
-            System.out.println("You Won");
-        } else {
-            System.out.println("You Lost");
-        }
+        System.out.printf("%nYou %s with %d %nHouse had %d.", getResult(total)? "Win":"Lost", total, houseHand);
 
     }
 
 
-    public static int randomNum() {
+    public static int houseDraw() {
+        return (int)(Math.random()*6)+16;
+    }
+    public static int playerDraw() {
         return (int)(Math.random()*10)+1;
     }
 
