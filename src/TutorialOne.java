@@ -1,6 +1,18 @@
+/*
+Author: Cat
+Version: 1d
+
+This tutorial was pretty painful to follow. I wonder who made it
+
+Date 15/09/23
+ */
+
+
+
+
 import java.lang.Math;
 import java.util.Scanner;
-import java.util.ArrayList; // import the ArrayList class
+import java.util.ArrayList;
 
 
 public class TutorialOne {
@@ -9,7 +21,7 @@ public class TutorialOne {
         String choice;
         int houseHand, newCard, total;
 
-        ArrayList<Integer> playerHand = new ArrayList<Integer>();
+        ArrayList<Integer> playerHand = new ArrayList<>();
         playerHand.add(playerDraw());
         playerHand.add(playerDraw());
 
@@ -19,7 +31,7 @@ public class TutorialOne {
 
 
         System.out.print("Your cards: ");
-//        System.out.printf("First Card --> %d%nSecond Card --> %d%n", card1 ,card2);
+
         for (Integer card : playerHand) {
             System.out.printf("%d,",card);
         }
@@ -29,17 +41,19 @@ public class TutorialOne {
         System.out.print("Choice: ");
         choice = kInput.next();
 
-        while (choice.equals("y")){
-            System.out.println("");
-            playerHand.add()
+        while (choice.equalsIgnoreCase("y")){
+            playerHand.add(playerDraw());
             newCard = playerDraw();
             total += newCard;
+
             System.out.printf("%nNew Card --> %d%n", newCard);
+            displayHand(playerHand);
             System.out.printf("Total %d%n%n", total);
 
             if (busted(total)){
                 System.out.println("Busted!");
                 choice = "n";
+
             } else {
                 System.out.println("Do you wish to draw another card? (y/n)");
                 System.out.print("Choice: ");
@@ -47,7 +61,7 @@ public class TutorialOne {
             }
         }
 
-        System.out.printf("%nYou %s with %d %nHouse had %d.", getResult(total)? "Win":"Lost", total, houseHand);
+        System.out.printf("%nYou %s with %d. %nHouse had %d.", getResult(total, houseHand)? "Win":"Lost", total, houseHand);
 
     }
 
@@ -61,9 +75,9 @@ public class TutorialOne {
 
     public static void displayHand(ArrayList<Integer> playerCards) {
         System.out.println("Your hand: ");
-        playerCards.forEach((card) -> System.out.printf(""));
+        playerCards.forEach((card) -> System.out.print(card + ", "));
     }
-//    Continue above
+
     public static int calcTotal(ArrayList<Integer> playerCards) {
         int cardsTotal = 0;
 
@@ -76,8 +90,8 @@ public class TutorialOne {
     public static boolean busted(int cardsTotal) {
         return cardsTotal>21;
     }
-    public static boolean getResult(int totalCards){
-        return ((totalCards > 18) && (totalCards <= 21));
+    public static boolean getResult(int totalCards, int houseTotal){
+        return ((totalCards > houseTotal) && (totalCards <= 21));
     }
 
 }
