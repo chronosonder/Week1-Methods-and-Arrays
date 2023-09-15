@@ -14,75 +14,66 @@ import java.util.Scanner;
 public class TutorialTwo {
     static Scanner kInput = new Scanner(System.in);
     public static void main(String[] args){
-        String[][] planeSeats = new String[14][3];
+        String[][] planeSeats = new String[15][3];
+        boolean mergeSecundele = true;
         int choice, seatNumber;
 
-        planeSeats[0][0] = "Cat";
-        planeSeats[0][1] = "Buhan";
-        planeSeats[0][2] = "1";
-        planeSeats[1][0] = "Mike";
-
-        displayMenu();
-        System.out.printf("%nChoice: ");
-        choice = kInput.nextInt();
-
-        switch (choice) {
-            case 1:
-                availableSeats(planeSeats);
-
-                System.out.printf("%nEnter the seat number you would like to book: ");
-                seatNumber = kInput.nextInt() - 1;
-
-                System.out.println("Please enter your first name.");
-                planeSeats[seatNumber][0] = kInput.next();
-
-                System.out.println("Please enter your last name.");
-                planeSeats[seatNumber][1] = kInput.next();
-
-                System.out.println("Please select the booking type.");
-                System.out.printf("1 - Business     2 - Local       3 - Leisure");
-                planeSeats[seatNumber][2] = kInput.next();
-
-                System.out.println("Thank you for your booking.");
-                availableSeats(planeSeats);
-
-                break;
-            case 2:
-                break;
-            case 3:
-                break;
-            case 4:
-                break;
-            case 5:
-                break;
-            default:
-                System.out.println("Incorrect choice.");
-                break;
-        }
 
 
+        while (mergeSecundele) {
+            displayMenu();
+            System.out.printf("%nChoice: ");
+            choice = kInput.nextInt();
 
-    }
+            switch (choice) {
+                case 1:
+                    availableSeats(planeSeats);
 
-    public static void availableSeats(String[][] seatsArray) {
+                    System.out.printf("%nEnter the seat number you would like to book: ");
+                    seatNumber = kInput.nextInt();
 
-        System.out.print("Available seat numbers: ");
+                    System.out.print("Please enter your first name: ");
+                    planeSeats[seatNumber][0] = kInput.next();
 
-        for (int row = 0; row < 14; row++) {
-            if (seatsArray[row][0] == null){
+                    System.out.print("Please enter your last name: ");
+                    planeSeats[seatNumber][1] = kInput.next();
 
-                System.out.printf("%d%s", row + 1,(row == 13)?".":", ");
+                    System.out.printf("%nPlease select the booking type.%n");
+                    System.out.printf("1 - Business     2 - Local     3 - Leisure%n");
+                    System.out.print("Ticket type: ");
+                    planeSeats[seatNumber][2] = kInput.next();
+
+                    System.out.printf("%nTicket price: £%s%n", ticketPrice(Integer.parseInt(planeSeats[seatNumber][2])));
+
+                    System.out.println("Thank you for your booking.");
+
+                    break;
+                case 2:
+                    displaySeats(planeSeats);
+                    break;
+                case 3:
+                    break;
+                case 4:
+                    break;
+                case 5:
+                    mergeSecundele = false;
+                    break;
+                default:
+                    System.out.println("Incorrect choice.");
+                    break;
             }
-//            for (int col = 0; col < 3; col++){
-//                System.out.println(row+" "+col);
-//            }
 
+//            System.out.println("*Navigation*");
+//            System.out.println("1 - Go back to menu");
+//            System.out.println("5 - Exit");
+//
+//            System.out.printf("%nChoice: ");
         }
-
+        kInput.close();
     }
 
     public static void displayMenu() {
-        System.out.println("*Welcome to QuackRlines*");
+        System.out.printf("        *Welcome to QuackRlines*%n%n");
         System.out.println("Please choose from one of the options below by entering the corresponding number");
         System.out.println("1. Book a seat");
         System.out.println("2. Display all seats showing passenger details");
@@ -92,9 +83,35 @@ public class TutorialTwo {
         System.out.println("5. Exit");
     }
 
-    public static void seatBooking() {
 
+    public static void availableSeats(String[][] seatsArray) {
+
+        System.out.print("Available seat numbers: ");
+
+        for (int row = 0; row < 15; row++) {
+            if (seatsArray[row][0] == null){
+
+                System.out.printf("%d%s", row + 1,(row == 14)?".":", ");
+            }
+        }
     }
 
+    public static void displaySeats(String[][] seats) {
+        for (int row = 0; row < 15; row++) {
+
+            System.out.printf("Seat %d - ", row);
+
+            if (seats[row][0] == null) {
+                System.out.println("Empty");
+            } else {
+                System.out.printf("Booked by %s %s%n",seats[row][0], seats[row][1]);
+            }
+        }
+    }
+
+    public static double ticketPrice(int ticketType) {
+        return 100 * ((ticketType == 1 )?0.2:(ticketType == 2)?0:0.1) + 100;
+//        ...It works...Ok?
+    }
 }
 
