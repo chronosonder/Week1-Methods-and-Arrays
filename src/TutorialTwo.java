@@ -52,8 +52,13 @@ public class TutorialTwo {
                     displaySeats(planeSeats);
                     break;
                 case 3:
+                    displaySeats(planeSeats);
+                    System.out.print("\nPlease enter the seat number you would like to cancel: ");
+                    planeSeats[kInput.nextInt()][0] = null;
+                    System.out.println("\nBooking canceled.");
                     break;
                 case 4:
+                    displaySeats(planeSeats);
                     break;
                 case 5:
                     mergeSecundele = false;
